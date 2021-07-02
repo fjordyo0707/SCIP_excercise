@@ -1,0 +1,17 @@
+#lang sicp
+(define (cube x) (* x x x))
+(define (sum term a next b count n)
+  (define (coefficient cur_count)
+    (cond ((= cur_count 0) 1)
+          ((= cur_count n) 1)
+          ((even? cur_count) 2)
+          (else 4)))
+  (if (> a b)
+      0
+      (+ (* (term a) (coefficient count))
+         (sum term (next a) next b (+ count 1) n))))
+(define (integral-SP f a b n)
+  (define (h)(/ (- b a) n))
+  (define (add-dx a) (+ a (h)))
+  (* (/ (h) 3) (sum cube a add-dx b 0 n))
+  )
